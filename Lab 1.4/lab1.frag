@@ -82,7 +82,12 @@ void main(void)
 	{
 		vec2 f = texCoord * 2.0 - vec2(1.0);
 		float radius = length(f)*2; // Same as sqrt(fx*fx + fy * fy);
-		out_Color = vec4(cos(radius/4 * ringDensity)/ 3.0 + 0.5, 0.1, sin(radius * ringDensity)/ 3.0 + 0.5, 1.0);
+
+		float r = cos(radius * ringDensity) * noise(f*20);
+		float g = sin(radius/2 * ringDensity) * noise(f*15);
+		float b = sin(radius/4 * ringDensity) * noise(f*10);
+
+		out_Color = vec4(r, g, b, 1.0);
 	}
 	else
 		out_Color = texture(tex, texCoord);
