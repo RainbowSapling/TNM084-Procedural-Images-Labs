@@ -39,19 +39,25 @@ void maketexture()
 	for (x = 0; x < kTextureSize; x++)
 	for (y = 0; y < kTextureSize; y++)
 	{
-		fx = (float)(x-kTextureSize/2.)/kTextureSize*2.;
+        // Stretch in x or y axis
+		fx = (float)(x-kTextureSize/2.)/kTextureSize*4.;
 		fy = (float)(y-kTextureSize/2.)/kTextureSize*2.;
-		fxo = sqrt(fx*fx+fy*fy);
+
+		fxo = sqrt(fx*fx+fy*fy)*50;
 		fyo = sqrt(fx*fx+fy*fy);
+
 		fxo = cos(fxo * ringDensity);
-		fyo = sin(fyo * ringDensity);
+		fyo = sin(fyo * ringDensity)/5;
+
 		if (fxo > 1.0) fxo = 1;
 		if (fxo < -1.0) fxo = -1.0;
 		if (fyo > 1.0) fyo = 1.0;
 		if (fyo < -1.0) fyo = -1.0;
-		ptex[x][y][0] = fxo * 127 + 127;
-		ptex[x][y][1] = fyo * 127 + 127;
-		ptex[x][y][2] = 128;
+
+		// Color rgb
+		ptex[x][y][0] = fxo * 127 + 27;
+		ptex[x][y][1] = fyo * 127 + 87;
+		ptex[x][y][2] = 108;
 	}
 }
 
