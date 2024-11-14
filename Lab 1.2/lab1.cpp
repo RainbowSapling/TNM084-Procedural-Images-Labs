@@ -27,46 +27,82 @@
 
 #define kTextureSize 800
 GLubyte ptex[kTextureSize][kTextureSize][3];
-const float ringDensity = 15.0;
+const float ringDensity = 30.0;
 
 // Example: Radial pattern.
 void maketexture()
 {
-
-	//Circles
+	// Variables
 	int x, y;
-	float fx, fy, fxo, fyo;
-//	char val;
+    int width = 80;
+    int height = 40;
+    int gap = 5;
+    int row = 1;
 
+
+    // Background color
+    for (x = 0; x < kTextureSize; x++)
+    for (y = 0; y < kTextureSize; y++)
+    {
+        ptex[x][y][0] = 80;
+        ptex[x][y][1] = 80;
+        ptex[x][y][2] = 80;
+    }
+
+
+    // Bricks
+    for (x = 0; x < kTextureSize; x++)
+    for (y = 0; y < kTextureSize; y++)
+    {
+        // Print current pixel orange
+        ptex[x][y][0] = 255;
+        ptex[x][y][1] = 90;
+        ptex[x][y][2] = 0;
+
+        // Print every other row with full bricks and every other row with half bricks
+        if(row % 2 == 0 && y % (width/2) == 0)
+        {
+            y += gap;
+        }
+        else if(y % width == 0)
+        {
+            y += gap;
+        }
+
+        if(x % height == 0)
+        {
+            x += gap;
+            row++;
+        }
+    }
+
+
+
+
+/*
 	for (x = 0; x < kTextureSize; x++)
 	for (y = 0; y < kTextureSize; y++)
 	{
-        // Stretch in x or y axis
-		fx = (float)(x-kTextureSize/2.)/kTextureSize;
-		fy = (float)(y-kTextureSize/2.)/kTextureSize * 2;
+		fx = (float)(x-kTextureSize/2.)/kTextureSize*2.;
+		fy = (float)(y-kTextureSize/2.)/kTextureSize*2.;
 
-		fxo = sqrt(fx*fx+fy*fy)*25;
-		fyo = sqrt(fx*fx+fy*fy) * fxo;
+		fxo = sqrt(fx*fx+fy*fy);
+		fyo = sqrt(fx*fx+fy*fy);
 
-		fxo = cos(fxo * ringDensity * fyo) * 5;
-		fyo = sin(tan(fyo * ringDensity * exp(fyo)) * fyo);
-
-		fxo = fxo * sin(fx*12*fy);
-		fyo = fyo * cos(fy*5) / exp(fxo);
-
+		fxo = cos(fxo * ringDensity);
+		fyo = sin(fyo * ringDensity);
 
 		if (fxo > 1.0) fxo = 1;
 		if (fxo < -1.0) fxo = -1.0;
 		if (fyo > 1.0) fyo = 1.0;
 		if (fyo < -1.0) fyo = -1.0;
 
-		// Color rgb
-		ptex[x][y][0] = fyo * 27 + 111;
-		ptex[x][y][1] = fxo * 37 * exp(fyo) + 75;
-		ptex[x][y][2] = 108;
+		ptex[x][y][0] = fxo * 127 + 127;
+		ptex[x][y][1] = fyo * 127 + 127;
+		ptex[x][y][2] = 255;
 
 
-	}
+	}*/
 }
 
 // Globals
