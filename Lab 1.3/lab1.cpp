@@ -32,7 +32,72 @@ const float ringDensity = 15.0;
 // Example: Radial pattern.
 void maketexture()
 {
+// Variables
+	int x, y;
+    int width = 80;
+    int height = 40;
+    int gap = 5;
+    int row = 1;
+    float tempY = 1.;
+    float tempX = 1.;
+    float fx;
+    float fy;
+    float no;
 
+
+    // Background color
+    for (x = 0; x < kTextureSize; x++)
+    for (y = 0; y < kTextureSize; y++)
+    {
+        ptex[x][y][0] = 80;
+        ptex[x][y][1] = 80;
+        ptex[x][y][2] = 80;
+    }
+
+
+    // Bricks
+    for (x = 0; x < kTextureSize; x++)
+    for (y = 0; y < kTextureSize; y++)
+    {
+
+        fx = (float)(x-kTextureSize/2.0)/kTextureSize*2.0;
+        fy = (float)(y-kTextureSize/2.0)/kTextureSize*2.0;
+
+        no = noise2(fy*17, fx*17);
+
+        width += no;
+        height += no;
+
+        // Print current pixel orange
+        ptex[x][y][0] = no * 127 + 100;
+        ptex[x][y][1] = 90;
+        ptex[x][y][2] = 0;
+
+        // Print every other row with full bricks and every other row with half bricks
+        if(row % 2 == 0 && y % (width/2) == 0)
+        {
+            y += gap;
+        }
+        else if(y % width == 0)
+        {
+            y += gap;
+        }
+
+        if(x % height == 0)
+        {
+            x += gap;
+            row++;
+        }
+
+        width = 80;
+        height = 40;
+    }
+
+
+
+
+
+/*
 	//Circles
 	int x, y;
 	float fx, fy, fxo, fyo;
@@ -65,7 +130,7 @@ void maketexture()
 		ptex[x][y][2] = 188;
 
 
-	}
+	}*/
 }
 
 // Globals
