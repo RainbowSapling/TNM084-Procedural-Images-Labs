@@ -29,6 +29,10 @@
 GLubyte ptex[kTextureSize][kTextureSize][3];
 const float ringDensity = 15.0;
 
+double fract(double x){
+    return(x-floor(x));
+}
+
 // Example: Radial pattern.
 void maketexture()
 {
@@ -43,16 +47,22 @@ void maketexture()
     float fx;
     float fy;
     float no;
+    float squareSize;
+    float checkNum = 8.0;
+    float xx;
+    float yy;
+    float xn;
+    float xr;
 
 
     // Background color
-    for (x = 0; x < kTextureSize; x++)
+   /* for (x = 0; x < kTextureSize; x++)
     for (y = 0; y < kTextureSize; y++)
     {
         ptex[x][y][0] = 80;
         ptex[x][y][1] = 80;
         ptex[x][y][2] = 80;
-    }
+    }*/
 
 
     // Bricks
@@ -60,16 +70,54 @@ void maketexture()
     for (y = 0; y < kTextureSize; y++)
     {
 
-        fx = (float)(x-kTextureSize/2.0)/kTextureSize*2.0;
+        // Calculations for a brick pattern
+            squareSize = round(kTextureSize / checkNum); // How large is one square in pixels, used like density in _RADIAL texture
+
+            // Coordinates inside a brick
+            yy = fract((float)(y)/2/squareSize + trunc(x / squareSize)/2);
+            xx = fract((float)(x)/2/squareSize + trunc(x / squareSize)/2);
+
+            // Deriviate approximation, i think
+            fx = (float)(x-kTextureSize/2.0)/kTextureSize*2.0;
+            fy = (float)(y-kTextureSize/2.0)/kTextureSize*2.0;
+
+            xr = noise2(fx*78, fy*78); // Brick noise
+            xn = noise2(fx*50, fy*50); // Mortar noise
+
+            if((yy >= 0) && (yy < 0.1)) // Vertical mortar width
+                {
+                ptex[x][y][0] = xn*10 + 45; // Red
+                ptex[x][y][1] = xn*10 + 45; // Green
+                ptex[x][y][2] = xn*10 + 45; // Blue
+                }
+            else if((yy >= 0.1)  &&  ((xx >= 0) && (xx < 0.06*xn*4+0.2))) // Horizontal mortar height, affected by yy
+                {
+                ptex[x][y][0] = xn*5 + 45; // Red
+                ptex[x][y][1] = xn*5 + 45; // Green
+                ptex[x][y][2] = xn*5 + 45; // Blue
+                }
+            else
+                {
+                // Bricks
+                ptex[x][y][0] =  xr * 40 + 150;  // Red
+                ptex[x][y][1] =  65; // Green
+                ptex[x][y][2] = 65;  // Blue
+                }
+    }
+
+
+
+        /*fx = (float)(x-kTextureSize/2.0)/kTextureSize*2.0;
         fy = (float)(y-kTextureSize/2.0)/kTextureSize*2.0;
 
         no = noise2(fy*17, fx*17);
 
-        width += no;
-        height += no;
+        //width += no;
+        //height += no;
+
 
         // Print current pixel orange
-        ptex[x][y][0] = no * 127 + 100;
+        ptex[x][y][0] = no * 50 + 200;
         ptex[x][y][1] = 90;
         ptex[x][y][2] = 0;
 
@@ -91,7 +139,7 @@ void maketexture()
 
         width = 80;
         height = 40;
-    }
+    }*/
 
 
 
