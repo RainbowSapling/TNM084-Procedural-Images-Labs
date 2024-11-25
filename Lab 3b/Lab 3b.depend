@@ -208,3 +208,83 @@
 1383935926 source:c:\users\ingem\onedrive\desktop\labbar 2023\tnm084 labs\lab 3b\noise\simplexnoise1234.c
 	"simplexnoise1234.h"
 
+1731271240 source:c:\users\mbspe\documents\tnm084 - procedural images\tnm084-procedural-images-labs\common\gl_utilities.c
+	<Windows.h>
+	<stdlib.h>
+	<stdio.h>
+	<stddef.h>
+	<string.h>
+	"GL_utilities.h"
+
+1731271240 c:\users\mbspe\documents\tnm084 - procedural images\tnm084-procedural-images-labs\common\gl_utilities.h
+	<OpenGL/gl3.h>
+	"glew.h"
+	<GL/gl.h>
+	<GL/gl.h>
+	<stdlib.h>
+
+1731271240 c:\users\mbspe\documents\tnm084 - procedural images\tnm084-procedural-images-labs\common\windows\glew.h
+	<stddef.h>
+	<inttypes.h>
+	<stdint.h>
+	<inttypes.h>
+	<Availability.h>
+	<OpenGL/glu.h>
+	<GL/glu.h>
+
+1731271240 source:c:\users\mbspe\documents\tnm084 - procedural images\tnm084-procedural-images-labs\common\loadtga.c
+	"LoadTGA.h"
+
+1731271240 c:\users\mbspe\documents\tnm084 - procedural images\tnm084-procedural-images-labs\common\loadtga.h
+	<OpenGL/gl3.h>
+	"glew.h"
+	<GL/gl.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1731271240 source:c:\users\mbspe\documents\tnm084 - procedural images\tnm084-procedural-images-labs\common\windows\glew.c
+	"glew.h"
+	"wglew.h"
+	<GL/glxew.h>
+	<stddef.h>
+	<dlfcn.h>
+	<stdio.h>
+	<stdlib.h>
+	<stdlib.h>
+	<string.h>
+	<AvailabilityMacros.h>
+	<dlfcn.h>
+	<mach-o/dyld.h>
+
+1731271240 c:\users\mbspe\documents\tnm084 - procedural images\tnm084-procedural-images-labs\common\windows\wglew.h
+	<windows.h>
+
+1731271240 source:c:\users\mbspe\documents\tnm084 - procedural images\tnm084-procedural-images-labs\common\windows\microglut.c
+	<windows.h>
+	"glew.h"
+	<gl/gl.h>
+	"MicroGlut.h"
+	<stdio.h>
+	<io.h>
+	<fcntl.h>
+
+1731271240 c:\users\mbspe\documents\tnm084 - procedural images\tnm084-procedural-images-labs\common\windows\microglut.h
+
+1731271240 source:c:\users\mbspe\documents\tnm084 - procedural images\tnm084-procedural-images-labs\lab 3b\noise\cellular.c
+	<math.h>
+	<stdio.h>
+	"cellular.h"
+
+1731271240 c:\users\mbspe\documents\tnm084 - procedural images\tnm084-procedural-images-labs\lab 3b\noise\cellular.h
+
+1731271240 source:c:\users\mbspe\documents\tnm084 - procedural images\tnm084-procedural-images-labs\lab 3b\noise\noise1234.c
+	"noise1234.h"
+
+1731271240 c:\users\mbspe\documents\tnm084 - procedural images\tnm084-procedural-images-labs\lab 3b\noise\noise1234.h
+
+1731271240 source:c:\users\mbspe\documents\tnm084 - procedural images\tnm084-procedural-images-labs\lab 3b\noise\simplexnoise1234.c
+	"simplexnoise1234.h"
+
+1731271240 c:\users\mbspe\documents\tnm084 - procedural images\tnm084-procedural-images-labs\lab 3b\noise\simplexnoise1234.h
+

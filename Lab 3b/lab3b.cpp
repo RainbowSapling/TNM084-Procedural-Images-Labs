@@ -45,6 +45,10 @@ GLuint indices[(kTerrainSize-1)*(kTerrainSize-1)*3*2];
 #define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
 #define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
 
+float fx = 0;
+float fz = 0;
+float no = 0;
+
 void MakeTerrain()
 {
 	// TO DO: This is where your terrain generation goes if on CPU.
@@ -56,9 +60,14 @@ void MakeTerrain()
 		#define bumpHeight 0.5
 		#define bumpWidth 2.0
 
+		fx = (float)(x-kTerrainSize/2.0)/kTerrainSize*2.0;
+        fz = (float)(z-kTerrainSize/2.0)/kTerrainSize*2.0;
+
+        no = noise2(fx*3, fz*3);
+
 		// squared distance to center
 		float h = ( (x - kTerrainSize/2)/bumpWidth * (x - kTerrainSize/2)/bumpWidth +  (z - kTerrainSize/2)/bumpWidth * (z - kTerrainSize/2)/bumpWidth );
-		float y = MAX(0, 3-h) * bumpHeight;
+		float y = no * h * bumpHeight * 0.06;
 
 		vertices[ix] = vec3(x * kPolySize, y, z * kPolySize);
 		texCoords[ix] = vec2(x, z);
