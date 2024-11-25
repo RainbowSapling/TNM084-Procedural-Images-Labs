@@ -61,6 +61,7 @@ void MakeCylinderAlt(int aSlices, float height, float topwidth, float bottomwidt
 }
 
 
+
 mat4 projectionMatrix;
 
 Model *floormodel;
@@ -86,6 +87,8 @@ GLuint indices2[] = {	0,3,2, 0,2,1};
 
 // THIS IS WHERE YOUR WORK GOES!
 
+void makeBranch(float, float, float, int);
+
 gluggModel MakeTree()
 {
 	gluggSetPositionName("inPosition");
@@ -97,10 +100,77 @@ gluggModel MakeTree()
 	// Between gluggBegin and gluggEnd, call MakeCylinderAlt plus glugg transformations
 	// to create a tree.
 
+
+	// slices, height, top width, bottom width
 	MakeCylinderAlt(20, 2, 0.1, 0.15);
+
+	makeBranch(2.0, 0.65, 0.95, 0);
+
+
 
 	return gluggBuildModel(0);
 }
+
+void makeBranch(float transFact, float scaleFact, float rotFact, int n)
+{
+    if (n > 5)
+    {
+        return;
+    }
+
+    // Branch 1
+    gluggTranslate(0, transFact, 0);
+    gluggScale(scaleFact, scaleFact, scaleFact);
+    gluggRotate(rotFact, 0, 0, 1.0);
+    MakeCylinderAlt(20, 2, 0.1, 0.15);
+    makeBranch(transFact, scaleFact, rotFact, n+1);
+
+    // Reset
+    gluggRotate(-rotFact, 0, 0, 1.0);
+    gluggScale(1/scaleFact, 1/scaleFact, 1/scaleFact);
+    gluggTranslate(0, -transFact, 0);
+
+
+    // Branch 2
+    gluggTranslate(0, transFact, 0);
+    gluggScale(scaleFact, scaleFact, scaleFact);
+    gluggRotate(-rotFact, 0, 0, 1.0);
+    MakeCylinderAlt(20, 2, 0.1, 0.15);
+    makeBranch(transFact, scaleFact, rotFact, n+1);
+
+    // Reset
+    gluggRotate(rotFact, 0, 0, 1.0);
+    gluggScale(1/scaleFact, 1/scaleFact, 1/scaleFact);
+    gluggTranslate(0, -transFact, 0);
+
+
+    // Branch 3
+    gluggTranslate(0, transFact, 0);
+    gluggScale(scaleFact, scaleFact, scaleFact);
+    gluggRotate(rotFact, 1.0, 0, 0.0);
+    MakeCylinderAlt(20, 2, 0.1, 0.15);
+    makeBranch(transFact, scaleFact, rotFact, n+1);
+
+    // Reset
+    gluggRotate(-rotFact, 1.0, 0, 0.0);
+    gluggScale(1/scaleFact, 1/scaleFact, 1/scaleFact);
+    gluggTranslate(0, -transFact, 0);
+
+
+    // Branch 4
+    gluggTranslate(0, transFact, 0);
+    gluggScale(scaleFact, scaleFact, scaleFact);
+    gluggRotate(-rotFact, 1.0, 0, 0.0);
+    MakeCylinderAlt(20, 2, 0.1, 0.15);
+    makeBranch(transFact, scaleFact, rotFact, n+1);
+
+    // Reset
+    gluggRotate(rotFact, 1.0, 0, 0.0);
+    gluggScale(1/scaleFact, 1/scaleFact, 1/scaleFact);
+    gluggTranslate(0, -transFact, 0);
+
+}
+
 
 gluggModel tree;
 
