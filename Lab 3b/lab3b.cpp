@@ -40,6 +40,7 @@ vec3 vertices[kTerrainSize*kTerrainSize];
 vec2 texCoords[kTerrainSize*kTerrainSize];
 vec3 normals[kTerrainSize*kTerrainSize];
 GLuint indices[(kTerrainSize-1)*(kTerrainSize-1)*3*2];
+float height[kTerrainSize*kTerrainSize];
 
 // These are considered unsafe, but with most C code, write with caution.
 #define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
@@ -48,6 +49,8 @@ GLuint indices[(kTerrainSize-1)*(kTerrainSize-1)*3*2];
 float fx = 0;
 float fz = 0;
 float no = 0;
+
+
 
 void MakeTerrain()
 {
@@ -72,6 +75,7 @@ void MakeTerrain()
 		vertices[ix] = vec3(x * kPolySize, y, z * kPolySize);
 		texCoords[ix] = vec2(x, z);
 		normals[ix] = vec3(0,1,0);
+		height[ix] = y;
 	}
 
 	// Make indices
@@ -96,7 +100,31 @@ void MakeTerrain()
 	for (int x = 0; x < kTerrainSize; x++)
 	for (int z = 0; z < kTerrainSize; z++)
 	{
-		normals[z * kTerrainSize + x] = SetVec3(0,1,0);
+		//normals[z * kTerrainSize + x] = SetVec3(0,1,0);
+
+
+        // vertical
+        vec3 point1 = vertices[((x-1) + z*kTerrainSize)];
+        vec3 point2 = vertices[((x+1) + z*kTerrainSize)];
+
+        // horizontal
+        vec3 point3 = vertices[(x + (z-1)*kTerrainSize)];
+        vec3 point4 = vertices[(x + (z+1)*kTerrainSize)];
+
+
+        vec3 norm1 = normalize(point1 - point2);
+        vec3 norm2 = normalize(point3 - point4);
+
+        if (x == 0 || z == 0 || z == kTerrainSize-1 || x == kTerrainSize-1)
+        {
+            normals[z * kTerrainSize + x] = vec3(0,abs(height[z*kTerrainSize+x]),0);
+        }
+        else
+        {
+            normals[z * kTerrainSize + x] = cross(norm2, norm1);
+        }
+
+
 	}
 }
 

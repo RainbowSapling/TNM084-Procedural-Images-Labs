@@ -288,3 +288,32 @@
 
 1731271240 c:\users\mbspe\documents\tnm084 - procedural images\tnm084-procedural-images-labs\lab 3b\noise\simplexnoise1234.h
 
+1732549783 source:c:\users\mbspe\documents\tnm084 - procedural images\tnm084-procedural-images-labs\lab 3b\lab3b.cpp
+	"MicroGlut.h"
+	"GL_utilities.h"
+	"VectorUtils4.h"
+	"LittleOBJLoader.h"
+	"LoadTGA.h"
+	<math.h>
+	"noise1234.h"
+	"simplexnoise1234.h"
+	"cellular.h"
+
+1731271240 c:\users\mbspe\documents\tnm084 - procedural images\tnm084-procedural-images-labs\common\vectorutils4.h
+	<OpenGL/gl3.h>
+	"glew.h"
+	<GL/gl.h>
+	<math.h>
+	<stdio.h>
+
+1731271240 c:\users\mbspe\documents\tnm084 - procedural images\tnm084-procedural-images-labs\common\littleobjloader.h
+	<OpenGL/gl3.h>
+	"glew.h"
+	<GL/gl.h>
+	"VectorUtils4.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<math.h>
+	"VectorUtils4.h"
+
