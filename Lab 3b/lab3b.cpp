@@ -70,7 +70,7 @@ void MakeTerrain()
 
 		// squared distance to center
 		float h = ( (x - kTerrainSize/2)/bumpWidth * (x - kTerrainSize/2)/bumpWidth +  (z - kTerrainSize/2)/bumpWidth * (z - kTerrainSize/2)/bumpWidth );
-		float y = no * bumpHeight * 7.0;
+		float y = no * bumpHeight * 5.0;
 
 		vertices[ix] = vec3(x * kPolySize, y, z * kPolySize);
 		texCoords[ix] = vec2(x, z);
