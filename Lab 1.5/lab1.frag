@@ -85,9 +85,9 @@ void main(void)
 		vec2 f = texCoord * 2.0 - vec2(1.0);
 		float radius = length(f)*2; // Same as sqrt(fx*fx + fy * fy);
 
-		float r = sin(radius * radius * noise(f/3*t)) * 8;
-		float g = sin(radius * radius * noise(f/5*t)) * 4;
-		float b = sin(radius * radius * noise(f/2*t)) * 3;
+		float r = cos(radius * ringDensity / sin(t/100) * noise(f*15));
+		float g = sin(radius * ringDensity / cos(t/100) * noise(f*10));
+		float b = tan(radius * ringDensity / tan(t/100) * noise(f*5));
 
 		out_Color = vec4(r, g, b, 1.0);
 	}
