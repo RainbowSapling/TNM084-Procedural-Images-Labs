@@ -24,4 +24,7 @@ void main()
     teNormal = n0 + n1 + n2; // Sum with weights from the barycentric coords any way we like
 
 // Apply vertex transformation here if we want
+
+
+
 }

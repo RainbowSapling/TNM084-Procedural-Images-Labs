@@ -81,10 +81,10 @@ void DrawPatchModel(Model *m, GLuint program, const char* vertexVariableName, co
 
 // Tesselation control variables
 // Feel free to change these initializations!
-GLint TessLevelInner = 1;
-GLint TessLevelOuter1 = 1;
-GLint TessLevelOuter2 = 1;
-GLint TessLevelOuter3 = 1;
+GLint TessLevelInner = 5;
+GLint TessLevelOuter1 = 4;
+GLint TessLevelOuter2 = 4;
+GLint TessLevelOuter3 = 4;
 
 
 mat4 projectionMatrix;
