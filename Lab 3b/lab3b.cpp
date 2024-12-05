@@ -51,6 +51,31 @@ float fz = 0;
 float no = 0;
 
 
+void makePerlinTerrain(int x, int z){
+    float i[3];
+    float val = 0;
+    int ix = z * kTerrainSize + x;
+    int numOctaves = 5;
+
+    for(int k = 0; k<numOctaves; k++){
+        if(k == 0){
+            i[0] = x / (32.0/(k+1));
+            i[1] = z / (32.0/(k+1));
+            i[2] = (float)k;
+        }else{
+            i[0] = x / (32.0/(k+1));
+            i[1] = z / (32.0/(k+1));
+            i[2] = (float)k + 1,0;
+        }
+
+        val =+ (noise3(i[0],i[1],i[2]) * (128.0/(k+1)))/(128.0/(k+1));
+    }
+    vertices[ix] = vec3(x * kPolySize, val*1.5, z * kPolySize);
+
+}
+
+
+
 
 void MakeTerrain()
 {
@@ -60,8 +85,8 @@ void MakeTerrain()
 	{
 		int ix = z * kTerrainSize + x;
 
-		#define bumpHeight 0.5
-		#define bumpWidth 2.0
+		#define bumpHeight 10.5
+		#define bumpWidth 12.0
 
 		fx = (float)(x-kTerrainSize/2.0)/kTerrainSize*2.0;
         fz = (float)(z-kTerrainSize/2.0)/kTerrainSize*2.0;
@@ -70,12 +95,14 @@ void MakeTerrain()
 
 		// squared distance to center
 		float h = ( (x - kTerrainSize/2)/bumpWidth * (x - kTerrainSize/2)/bumpWidth +  (z - kTerrainSize/2)/bumpWidth * (z - kTerrainSize/2)/bumpWidth );
-		float y = no * bumpHeight * 5.0;
+		float y = no * bumpHeight;
 
-		vertices[ix] = vec3(x * kPolySize, y, z * kPolySize);
-		texCoords[ix] = vec2(x, z);
-		normals[ix] = vec3(0,1,0);
-		height[ix] = y;
+		makePerlinTerrain(x,z);
+
+		//vertices[ix] = vec3(x * kPolySize, y, z * kPolySize);
+		height[ix] = vertices[ix].y;
+        texCoords[ix] = vec2(x, z);
+        normals[ix] = vec3(0,1,0);
 	}
 
 	// Make indices
