@@ -17,6 +17,8 @@ uniform mat4 camMatrix;
 uniform float disp;
 uniform int texon;
 
+out float height;
+
 vec2 random2(vec2 st)
 {
     st = vec2( dot(st,vec2(127.1,311.7)),
@@ -24,10 +26,6 @@ vec2 random2(vec2 st)
     return -1.0 + 2.0*fract(sin(st)*43758.5453123);
 }
 
-float noise(vec3);
-
-// Gradient Noise by Inigo Quilez - iq/2013
-// https://www.shadertoy.com/view/XdXGW8
 float noise(vec2 st)
 {
     vec2 i = floor(st);
@@ -35,53 +33,10 @@ float noise(vec2 st)
 
     vec2 u = f*f*(3.0-2.0*f);
 
-    int x, y;
-    vec3 m;
-    float val;
-
-    for (x = 0; x < 128; x++)
-    for (y = 0; y < 128; y++)
-    {
-        m[0] = x / 32.0;
-        m[1] = y / 32.0;
-        m[2] = 0.0;
-
-        val = noise(m) * 128.0;
-
-        m[0] = x / 16.0;
-        m[1] = y / 16.0;
-        m[2] = 2.0;
-
-        val += noise(m) * 64.0;
-
-        m[0] = x / 8.0;
-        m[1] = y / 8.0;
-        m[2] = 3.0;
-
-        val += noise(m) * 32.0;
-
-        m[0] = x / 4.0;
-        m[1] = y / 4.0;
-        m[2] = 4.0;
-
-        val += noise(m) * 16.0;
-
-        m[0] = x / 2.0;
-        m[1] = y / 2.0;
-        m[2] = 5.0;
-
-        val += noise(m) * 8.0;
-
-
-        return val;
-
-
-    }
-
-    /*return mix( mix( dot( random2(i + vec2(0.0,0.0) ), f - vec2(0.0,0.0) ),
+    return mix( mix( dot( random2(i + vec2(0.0,0.0) ), f - vec2(0.0,0.0) ),
                      dot( random2(i + vec2(1.0,0.0) ), f - vec2(1.0,0.0) ), u.x),
                 mix( dot( random2(i + vec2(0.0,1.0) ), f - vec2(0.0,1.0) ),
-                     dot( random2(i + vec2(1.0,1.0) ), f - vec2(1.0,1.0) ), u.x), u.y);*/
+                     dot( random2(i + vec2(1.0,1.0) ), f - vec2(1.0,1.0) ), u.x), u.y);
 }
 
 vec3 random3(vec3 st)
@@ -116,13 +71,30 @@ float noise(vec3 st)
           	);
 }
 
+float FBM (vec3 p) {
+    int octaves = 7;
+    float lacunarity = 1.5;
+    float gain = 0.6;
+
+    float amp = 0.35;
+    float freq = 0.88;
+    float noiseValue = 0;
+
+    for(int i = 0; i < octaves; i++){
+        noiseValue += amp * (noise(p * freq));
+        freq *= lacunarity;
+        amp *= gain;
+    }
+    return noiseValue;
+}
+
 void computeVertex(int nr)
 {
 	vec3 p, v1, v2, v3, p1, p2, p3, s1, s2, n;
 
 	p = vec3(gl_in[nr].gl_Position);
 	// Add interesting code here
-	p = normalize(p);
+	//p = normalize(p);
 
 	float delta = 0.0001;
 
@@ -139,23 +111,28 @@ void computeVertex(int nr)
 	vec3 point2 = line2 * delta + p;
 	vec3 point3 = line3 * delta + p;
 
-	//point1 += noise(point1) * point1;
-	//point2 += noise(point2) * point2;
-	//point3 += noise(point3) * point3;
+	point1 = point1 + FBM(point1) * point1;
+	point2 = point2 + FBM(point2) * point2;
+	point3 = point3 + FBM(point3) * point3;
 
 	vec3 ve1 = normalize(point2 - point1);
 	vec3 ve2 = normalize(point3 - point1);
 
+    vec3 newN = normalize(cross(ve1, ve2));
 
 
-	gl_Position = projMatrix * camMatrix * mdlMatrix * vec4(p, 1.0) + noise(vec2(p.x, p.y)) / 3;
+    float pn = FBM(p) / 3;
+
+	gl_Position = projMatrix * camMatrix * mdlMatrix * vec4(normalize(p) + pn*p, 1.0);
 
     gsTexCoord = teTexCoord[0];
 
 	//n = teNormal[nr]; // This is not the normal you are looking for. Move along!
-    gsNormal = mat3(camMatrix * mdlMatrix) * normalize(cross(ve1, ve2));
+    gsNormal = mat3(camMatrix * mdlMatrix) * newN;
 
     //gsNormal = normalize(cross(ve1, ve2));
+
+    height = length(normalize(p) + pn * p);
 
     EmitVertex();
 }
