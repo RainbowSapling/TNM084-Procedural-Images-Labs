@@ -94,7 +94,7 @@ void MakeTerrain()
         no = noise2(fx*3, fz*3);
 
 		// squared distance to center
-		float h = ( (x - kTerrainSize/2)/bumpWidth * (x - kTerrainSize/2)/bumpWidth +  (z - kTerrainSize/2)/bumpWidth * (z - kTerrainSize/2)/bumpWidth );
+		//float h = ( (x - kTerrainSize/2)/bumpWidth * (x - kTerrainSize/2)/bumpWidth +  (z - kTerrainSize/2)/bumpWidth * (z - kTerrainSize/2)/bumpWidth );
 		float y = no * bumpHeight;
 
 		makePerlinTerrain(x,z);

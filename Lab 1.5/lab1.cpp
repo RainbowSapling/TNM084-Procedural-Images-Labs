@@ -77,7 +77,7 @@ void maketexture()
             yy = fract((float)(y)/2/squareSize + trunc(x / squareSize)/2);
             xx = fract((float)(x)/2/squareSize + trunc(x / squareSize)/2);
 
-            // Deriviate approximation, i think
+            // Deriviate approximation
             fx = (float)(x-kTextureSize/2.0)/kTextureSize*2.0;
             fy = (float)(y-kTextureSize/2.0)/kTextureSize*2.0;
 
@@ -86,22 +86,22 @@ void maketexture()
 
             if((yy >= 0) && (yy < 0.1)) // Vertical mortar width
                 {
-                ptex[x][y][0] = xn*10 + 45; // Red
-                ptex[x][y][1] = xn*10 + 45; // Green
-                ptex[x][y][2] = xn*10 + 45; // Blue
+                ptex[x][y][0] = xn*10 + 45; // R
+                ptex[x][y][1] = xn*10 + 45; // G
+                ptex[x][y][2] = xn*10 + 45; // B
                 }
-            else if((yy >= 0.1)  &&  ((xx >= 0) && (xx < 0.06*xn*4+0.2))) // Horizontal mortar height, affected by yy
+            else if((yy >= 0.1)  &&  ((xx >= 0) && (xx < 0.06*xn*4+0.2))) // Horizontal mortar height
                 {
-                ptex[x][y][0] = xn*5 + 45; // Red
-                ptex[x][y][1] = xn*5 + 45; // Green
-                ptex[x][y][2] = xn*5 + 45; // Blue
+                ptex[x][y][0] = xn*5 + 45; // R
+                ptex[x][y][1] = xn*5 + 45; // G
+                ptex[x][y][2] = xn*5 + 45; // B
                 }
             else
                 {
                 // Bricks
-                ptex[x][y][0] =  xr * 40 + 150;  // Red
-                ptex[x][y][1] =  65; // Green
-                ptex[x][y][2] = 65;  // Blue
+                ptex[x][y][0] =  xr * 40 + 150;  // R
+                ptex[x][y][1] =  65; // G
+                ptex[x][y][2] = 65;  // B
                 }
     }
 
